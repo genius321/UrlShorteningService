@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/genius321/UrlShorteningService/routes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/joho/godotenv"
