@@ -5,9 +5,10 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/asaskevich/govalidator"
 	"github.com/genius321/UrlShorteningService/database"
 	"github.com/genius321/UrlShorteningService/helpers"
+
+	"github.com/asaskevich/govalidator"
 	"github.com/go-redis/redis/v8"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
@@ -32,19 +33,17 @@ func ShortenURL(c *fiber.Ctx) error {
 
 	if err := c.BodyParser(&body); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-			"error": "cannot parse JSON",
+			"error": "Cannot parse JSON",
 		})
 	}
 
 	//implement rate limiting
-
 	r2 := database.CreateClient(1)
 	defer r2.Close()
 	val, err := r2.Get(database.Ctx, c.IP()).Result()
 	if err == redis.Nil {
 		_ = r2.Set(database.Ctx, c.IP(), os.Getenv("API_QUOTA"), 30*60*time.Second).Err()
 	} else {
-		val, _ = r2.Get(database.Ctx, c.IP()).Result()
 		valInt, _ := strconv.Atoi(val)
 		if valInt <= 0 {
 			limit, _ := r2.TTL(database.Ctx, c.IP()).Result()
@@ -56,7 +55,6 @@ func ShortenURL(c *fiber.Ctx) error {
 	}
 
 	//check if the input if an acutal URL
-
 	if !govalidator.IsURL(body.URL) {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": "Invalid URL",
@@ -64,15 +62,13 @@ func ShortenURL(c *fiber.Ctx) error {
 	}
 
 	//check for domain error
-
 	if !helpers.RemoveDomainError(body.URL) {
 		return c.Status(fiber.StatusServiceUnavailable).JSON(fiber.Map{
-			"error": "you can't hack the system (:",
+			"error": "Access denied",
 		})
 	}
 
 	//enforce https, SSL
-
 	body.URL = helpers.EnforceHTTP(body.URL)
 
 	var id string
