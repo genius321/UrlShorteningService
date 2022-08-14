@@ -10,7 +10,7 @@
 
 ### Start the server
 `docker-compose up -d`
-### ip addres
+### ip address
 `localhost:3000`
 ### You can use Postman or other testing tools to send post request 
 
