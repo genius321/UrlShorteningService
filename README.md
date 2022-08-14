@@ -14,7 +14,7 @@
 `localhost:3000`
 ### You can use Postman or other testing tools to send post request 
 
-<img width="625" img height="660" src="https://i.ibb.co/RYTr9kb/project1.png">
+<img width="625" src="https://i.ibb.co/RYTr9kb/project1.png">
 
 ### You can use the short to access the url before the expired time (expiry)
 ### The default expiry is 24 hours
