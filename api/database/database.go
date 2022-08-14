@@ -7,6 +7,7 @@ import (
 	"github.com/go-redis/redis/v8"
 )
 
+// create context
 var Ctx = context.Background()
 
 func CreateClient(dbNo int) *redis.Client {

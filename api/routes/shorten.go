@@ -64,7 +64,7 @@ func ShortenURL(c *fiber.Ctx) error {
 	//check for domain error
 	if !helpers.RemoveDomainError(body.URL) {
 		return c.Status(fiber.StatusServiceUnavailable).JSON(fiber.Map{
-			"error": "Access denied",
+			"error": "You can't hack the system!:(",
 		})
 	}
 
