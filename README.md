@@ -10,7 +10,8 @@
 
 ### Start the server
 `docker-compose up -d`
-### ip addres localhost:3000
+### ip addres
+`localhost:3000`
 ### You can use Postman or other testing tools to send post request 
 
 <img width="625" img height="660" src="https://i.ibb.co/RYTr9kb/project1.png">
